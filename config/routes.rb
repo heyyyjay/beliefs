@@ -1,11 +1,15 @@
 Beliefs::Application.routes.draw do
 
-  get "users/new"
+  resources :users
+  resources :sessions, only: [:new, :create, :destroy]
+  root 'statics_files#home'
 
-  get "static_files/home"
+  match '/signup',  to: 'users#new',        via: 'get'
+  match '/signin',  to: 'sessions#new',     via: 'get' 
+  match '/signout', to: 'sessions#destroy', via: 'delete'
 
-  get "static_files/help"
+  match '/help',  to: 'static_files#help'
+  match '/about', to: 'static_files#about'
 
-  get "static_files/about"
 
 end

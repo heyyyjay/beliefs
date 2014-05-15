@@ -2,4 +2,5 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.13'
 gem 'mysql2'
 gem 'sqlite3'
-gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'bcrypt-ruby', '~> 3.0.0' # for password hashing
+gem 'strong_parameters' # allow for params.require(:symbol)

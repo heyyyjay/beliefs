@@ -2,7 +2,7 @@ Beliefs::Application.routes.draw do
 
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
-  root 'statics_files#home'
+  root to: 'static_files#home'
 
   match '/signup',  to: 'users#new',        via: 'get'
   match '/signin',  to: 'sessions#new',     via: 'get' 

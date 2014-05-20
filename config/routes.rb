@@ -1,6 +1,6 @@
 Beliefs::Application.routes.draw do
   resources :users
-  resources :sessions
+  resources :sessions, only: [:create, :destroy, :new]
 
   root to: 'static_files#home'
 

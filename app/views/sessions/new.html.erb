@@ -1,9 +1,21 @@
-<% provide(:title, "Sign in") %>
+<% provide(:Title, "Sign in") %>
 <h1>Sign in</h1>
 
-<%= form_for(:session, url: session_path) do |f| %>
 <table>
-
+  <%= form_for(:session, url: sessions_path) do |f| %>
+    <% if flash[:error] %>
+    <div id="error_explanation">
+      Error!
+      <ul>
+        <li><%= flash[:error] %></li>
+      </ul>
+    </div>
+    <% end %>
+    <% if flash[:notice] %>
+      <div id="notice">
+        <p><%= flash[:notice] %></p>
+      </div>
+    <% end %>
   <tr>
     <th><%= f.label :username %></th>
     <td><%= f.text_field :username %></td>
@@ -19,7 +31,7 @@
     <td><%= f.submit "Sign in" %></td>
   </tr>
 
+  <% end %>
 </table>
-<% end %>
 
-<p>New user? <%= link_to "Sign up now!", signup_path %></p>
+<p>Don't have an account? <%= link_to "Register now!", signup_path %></p>

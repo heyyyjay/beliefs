@@ -1,7 +1,8 @@
 Beliefs::Application.routes.draw do
 
   resources :users
-  resources :sessions, only: [:new, :create, :destroy]
+  resources :sessions
+
   root to: 'static_files#home'
 
   match '/signup',  to: 'users#new',        via: 'get'

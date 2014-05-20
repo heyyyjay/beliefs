@@ -1,2 +1,7 @@
 <% provide(:title, @user.username) %>
 <h1><%= @user.username %></h1>
+
+<% if flash[:notice] %>
+  <div id="notice"><%= flash[:notice] %></div>
+<% end %>
+

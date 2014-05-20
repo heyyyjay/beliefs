@@ -7,3 +7,16 @@
   margin: 0 0 18px 0;
 }
 
+#nav {
+  list-style: none;
+  padding-left: 0;
+}
+
+#nav li {
+  display: inline;
+}
+
+table th {
+  text-align: right;
+}
+

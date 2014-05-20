@@ -4,3 +4,4 @@ gem 'mysql2'
 gem 'sqlite3'
 gem 'bcrypt-ruby', '~> 3.0.0' # for password hashing
 gem 'strong_parameters' # allow for params.require(:symbol)
+gem 'jquery-rails', '~> 2.1'

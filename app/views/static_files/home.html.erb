@@ -1,2 +1,10 @@
-<h1>StaticFiles#home</h1>
-<p>Find me in app/views/static_files/home.html.erb</p>
+<% provide(:title, 'Welcome!') %>
+<h1>BELIEFS</h1>
+
+<% if flash[:notice] %>
+
+  <div id="notice"><% flash[:notice] %></div>
+
+<% end %>
+
+<p>Welcome friends!</p>

@@ -17,6 +17,11 @@
 }
 
 table th {
-  text-align: right;
+  padding-left: 0;
+  text-align: left;
+}
+
+table td {
+  padding: 2px 10px;
 }
 

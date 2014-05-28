@@ -6,6 +6,9 @@ class User < ActiveRecord::Base
   has_secure_password
   validates :password, length: { minimum: 6 }
 
+  has_many :user_beliefs
+  has_many :beliefs, :through => :user_beliefs
+
   def User.new_remember_token
     SecureRandom.urlsafe_base64
   end

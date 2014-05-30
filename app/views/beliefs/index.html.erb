@@ -3,13 +3,19 @@
 <h3>Trending Beliefs</h3>
 
 <p id="notice"><%= notice %></p>
+<p id="error"><%= flash[:error] %></p>
 
 <table>
 <% @beliefs.each do |belief| %>
   <tr>
     <th><%= belief.description %></th>
     <td><%= belief.total_believers %> believer(s)</td>
-    <td><%= link_to 'AGREE', add_believer_path(:id => belief.id) %></td>
+    <% if signed_in? %>
+    <td><%= link_to 'AGREE', add_believer_path(:user_id   => current_user["id"],
+                                               :belief_id => belief.id)    %></td>
+    <% else %>
+    <td><%= link_to 'AGREE', signin_path, :confirm => "You need to sign in to agree." %>
+    <% end %>
   </tr>
 <% end %>
 </table>

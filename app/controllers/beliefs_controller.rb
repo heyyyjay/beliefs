@@ -44,8 +44,11 @@ class BeliefsController < ApplicationController
 
     respond_to do |format|
       if @belief.save
-        format.html { redirect_to @belief, notice: 'Belief was successfully created.' }
-        format.json { render json: @belief, status: :created, location: @belief }
+        user_belief = UserBelief.new(user_id: current_user["id"], belief_id: @belief.id)
+        if user_belief.save
+          format.html { redirect_to beliefs_path, notice: 'Belief was successfully created.' }
+          format.json { render json: @belief, status: :created, location: @belief }
+        end
       else
         format.html { render action: "new" }
         format.json { render json: @belief.errors, status: :unprocessable_entity }
@@ -82,8 +85,18 @@ class BeliefsController < ApplicationController
   end
 
   def add_believer
-    Belief.increment_counter(:total_believers, params[:id])
-    redirect_to beliefs_path, notice: "You're a believer!"
+    # Belief.increment_counter(:total_believers, params[:id])
+
+    if UserBelief.where(user_id: params[:user_id], belief_id: params[:belief_id]).count == 0 
+      @user_belief = UserBelief.new(:user_id => params[:user_id], :belief_id => params[:belief_id])
+      if @user_belief.save
+        Belief.increment_counter(:total_believers, params[:belief_id])
+        flash[:notice] = "You're a believer!"
+      end
+    else
+      flash[:error] = "You already believe in this."
+    end
+    redirect_to beliefs_path
   end
 
   private
@@ -94,4 +107,5 @@ class BeliefsController < ApplicationController
     def belief_params
       params.require(:belief).permit(:description)
     end
+
 end

@@ -85,8 +85,6 @@ class BeliefsController < ApplicationController
   end
 
   def add_believer
-    # Belief.increment_counter(:total_believers, params[:id])
-
     if UserBelief.where(user_id: params[:user_id], belief_id: params[:belief_id]).count == 0 
       @user_belief = UserBelief.new(:user_id => params[:user_id], :belief_id => params[:belief_id])
       if @user_belief.save
@@ -96,7 +94,7 @@ class BeliefsController < ApplicationController
     else
       flash[:error] = "You already believe in this."
     end
-    redirect_to beliefs_path
+    redirect_to :back 
   end
 
   private

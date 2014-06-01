@@ -24,7 +24,7 @@ class UserBeliefsController < ApplicationController
       flash[:error] = "Could not remove belief."
     end
 
-    redirect_to current_user
+    redirect_to :back 
   end
 
   private

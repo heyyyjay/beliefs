@@ -11,8 +11,15 @@
     <th><%= link_to belief.description, belief_path(belief) %></th>
     <td><%= belief.total_believers %> believer(s)</td>
     <% if signed_in? %>
-    <td><%= link_to 'AGREE', add_believer_path(:user_id   => current_user["id"],
-                                               :belief_id => belief.id)    %></td>
+      <% user_belief = UserBelief.where(user_id: current_user["id"], belief_id: belief.id).first %>
+      <% if user_belief.nil? %>
+        <td><%= link_to 'AGREE', add_believer_path(:user_id   => current_user["id"],
+                                                   :belief_id => belief.id)          %></td>
+      <% else %>
+        <td><%= link_to 'DISAGREE',
+            remove_believer_path(:id => user_belief.id),
+            :method => :delete %></td>
+      <% end %>
     <% else %>
     <td><%= link_to 'AGREE', signin_path, :confirm => "You need to sign in to agree." %>
     <% end %>

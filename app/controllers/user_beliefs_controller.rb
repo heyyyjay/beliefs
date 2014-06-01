@@ -13,6 +13,20 @@ class UserBeliefsController < ApplicationController
     end
   end
 
+  def destroy
+    @user_belief = UserBelief.find(params[:id])
+    @belief = Belief.find(@user_belief.belief_id)
+
+    if @user_belief.destroy
+      @belief.remove_believer
+      flash[:notice] = "Succesfully removed belief."
+    else
+      flash[:error] = "Could not remove belief."
+    end
+
+    redirect_to current_user
+  end
+
   private
 
     def user_belief_params

@@ -5,3 +5,19 @@
   <div id="notice"><%= flash[:notice] %></div>
 <% end %>
 
+<table>
+  <tr><th>You Believe in...</th></tr>
+
+  <% user_beliefs = UserBelief.where(user_id: @user.id) %>
+  <% user_beliefs.each do |user_belief| %>
+  <tr>
+    <% @belief = Belief.find(user_belief.belief_id) %>
+    <td><%= link_to @belief.description %></td>
+    <td><%= link_to 'X',
+            remove_believer_path(:id => user_belief.id),
+            :method => :delete,
+            :confirm => "Are you sure?" %></td>
+  </tr>
+  <% end %>
+</table>
+

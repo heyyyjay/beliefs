@@ -1,10 +1,50 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Description:</b>
+<h2>
   <%= @belief.description %>
-</p>
+  <br /><small>BELIEVERS: <%= @belief.total_believers %></small>
+</h2>
 
+<table>
+  <tr>
+    <th>Believers...</th>
+  </tr>
 
-<%= link_to 'Edit', edit_belief_path(@belief) %> |
+  <% @user_beliefs = UserBelief.where(belief_id: @belief.id) %>
+  <% @user_beliefs.each do |user_belief| %>
+    <% current_user = User.find(user_belief.user_id) %>
+    <tr>
+      <td><%= current_user.username %></td>
+    </tr>
+  <% end %>
+
+</table>
+
+<table>
+
+  <tr>
+    <th>People who believe this also believe</th>
+  </tr>
+
+  <% @believers = Array.new %>
+  <% @user_beliefs.each do |user_belief| %>
+    <% @believers.push(User.find(user_belief.user_id)) %>
+  <% end %>
+
+  <% @belief_ids = Array.new %>
+  <% @believers.each do |believer| %>
+    <% UserBelief.where(user_id: believer.id).each do |user_belief| %>
+      <% @belief_ids.push(user_belief.belief_id) %>
+    <% end %>
+  <% end %>
+
+  <% @belief_ids.each do |belief_id| %> <!-- TODO replace with @belief_ids.uniq to prevent dupes -->
+    <% if belief_id != @belief.id %>
+      <% current_belief = Belief.find(belief_id) %>
+      <tr><td><%= link_to current_belief.description, belief_path(current_belief) %></td></tr>
+    <% end %>
+  <% end %>
+
+</table>
+
 <%= link_to 'Back', beliefs_path %>

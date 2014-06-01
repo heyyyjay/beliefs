@@ -6,4 +6,9 @@ class Belief < ActiveRecord::Base
     self.total_believers ||= 1
   end
 
+  def remove_believer
+    self.total_believers -= 1
+    self.save
+  end
+
 end

@@ -8,7 +8,7 @@
 <table>
 <% @beliefs.each do |belief| %>
   <tr>
-    <th><%= belief.description %></th>
+    <th><%= link_to belief.description, belief_path(belief) %></th>
     <td><%= belief.total_believers %> believer(s)</td>
     <% if signed_in? %>
     <td><%= link_to 'AGREE', add_believer_path(:user_id   => current_user["id"],

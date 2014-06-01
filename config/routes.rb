@@ -1,5 +1,7 @@
 Beliefs::Application.routes.draw do
 
+  match '/remove_believer', to: 'user_beliefs#destroy', via: 'delete'
+
   resources :beliefs
   match '/add_believer', to: 'beliefs#add_believer'
 

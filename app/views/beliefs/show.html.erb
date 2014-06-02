@@ -19,7 +19,10 @@
           class: "disagree" %>
     <% end %>
   <% else %>
-    <%= link_to 'AGREE', signin_path, :confirm => "You need to sign in to agree." %>
+    <%= link_to 'AGREE',
+        signin_path,
+        :confirm => "You need to sign in to agree.",
+        class: "agree" %>
   <% end %>
   </small>
 </h2>

@@ -12,7 +12,7 @@
   <% user_beliefs.each do |user_belief| %>
   <tr>
     <% @belief = Belief.find(user_belief.belief_id) %>
-    <td><%= link_to @belief.description %></td>
+    <td><%= link_to @belief.description, belief_path(@belief.id) %></td>
     <td><%= link_to 'X',
             remove_believer_path(:id => user_belief.id),
             :method => :delete,

@@ -1,11 +1,11 @@
-<h1>BELIEFS</h1>
-
-<h3>Trending Beliefs</h3>
+<h3>
+Trending Beliefs
+</h3>
 
 <p id="notice"><%= notice %></p>
 <p id="error"><%= flash[:error] %></p>
 
-<table>
+<table class="trends">
 <% @beliefs.each do |belief| %>
   <tr>
     <th><%= link_to belief.description, belief_path(belief) %></th>
@@ -13,15 +13,21 @@
     <% if signed_in? %>
       <% user_belief = UserBelief.where(user_id: current_user["id"], belief_id: belief.id).first %>
       <% if user_belief.nil? %>
-        <td><%= link_to 'AGREE', add_believer_path(:user_id   => current_user["id"],
-                                                   :belief_id => belief.id)          %></td>
+        <td><%= link_to 'AGREE',
+                add_believer_path(:user_id   => current_user["id"],
+                                  :belief_id => belief.id),
+                class: "agree" %></td>
       <% else %>
         <td><%= link_to 'DISAGREE',
-            remove_believer_path(:id => user_belief.id),
-            :method => :delete %></td>
+                remove_believer_path(:id => user_belief.id),
+                :method => :delete,
+                class: "disagree" %></td>
       <% end %>
     <% else %>
-    <td><%= link_to 'AGREE', signin_path, :confirm => "You need to sign in to agree." %>
+    <td><%= link_to 'AGREE',
+            signin_path,
+            :confirm => "You need to sign in to agree.",
+            class: "agree" %></td>
     <% end %>
   </tr>
 <% end %>
@@ -29,4 +35,10 @@
 
 <br />
 
-<%= link_to 'New Belief', new_belief_path %>
+<p class="create_belief">
+<% if signed_in? %>
+  <%= link_to '+ New Belief', new_belief_path %>
+<% else %>
+  <%= link_to 'Sign in', signin_path %> to create a belief!
+<% end %>
+</p>

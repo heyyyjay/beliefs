@@ -1,3 +1,22 @@
+body {
+  font-size: 16px;
+}
+
+  a, a:visited {
+    text-decoration: none;
+    color: #099;
+  }
+  body div a:hover {
+    color: #444;
+    background-color: #fff;
+  }
+
+div.container {
+  min-width: 525px;
+  max-width: 1024px;
+  margin: 0 auto;
+}
+
 #error_explanation, #error {
   color: #f00;
 }
@@ -17,11 +36,75 @@
 }
 
 table th {
-  padding-left: 0;
+  padding-left: 10px;
   text-align: left;
 }
 
 table td {
-  padding: 2px 10px;
+  padding: 5px 35px;
 }
 
+.footer {
+  text-align: center;
+}
+
+/* PAGE HEADER STYLING  app/view/layout/application.html.erb */
+
+div.page-header {
+  margin-bottom: 70px;
+}
+
+small.tagline {
+  font-weight: 300;
+  font-size: .75em;
+}
+
+h1.brand {
+  float: left;
+}
+
+ul.nav {
+  list-style: none;
+  float: right;
+}
+
+ul.nav li {
+  float: left;
+  padding: 5px 10px;
+}
+
+ul.nav li a {
+  text-decoration: none;
+  font-size: 16px;
+}
+
+ul.nav li a:hover {
+  color: #000;
+  background-color: #fff;
+}
+
+/* TRENDING */
+table.trends {
+  border-collapse: collapse;
+}
+
+table.trends tr:hover {
+  background-color: #eee;
+}
+
+table.trends a:hover {
+  background-color: #eee;
+}
+
+p.create_belief {
+  text-align: center;
+  font-weight: bold;
+}
+
+a.agree {
+  color: green; 
+}
+
+a.disagree {
+  color: maroon;
+}

@@ -1,28 +1,41 @@
+<h2>
+  <%= @belief.description %>
+  <br /><small>BELIEVERS: <%= @belief.total_believers %></small>
+</h2>
+
 <p id="notice"><%= notice %></p>
 <p id="error"><%= flash[:error] %></p>
 
-<h2>
-  <%= @belief.description %>
-  &nbsp;&nbsp;<small class="tagline">BELIEVERS: <%= @belief.total_believers %></small>&nbsp;&nbsp;
-  <small>
+<h3>
   <% if signed_in? %>
     <% user_belief = UserBelief.where(user_id: current_user["id"], belief_id: @belief.id).first %>
     <% if user_belief.nil? %>
-      <%= link_to 'AGREE',
-          add_believer_path(:user_id   => current_user["id"],
-                            :belief_id => @belief.id),
-          class: "agree" %>
+      <%= link_to 'AGREE', add_believer_path(:user_id   => current_user["id"],
+                                             :belief_id => @belief.id)         %>
     <% else %>
       <%= link_to 'DISAGREE',
           remove_believer_path(:id => user_belief.id),
-          :method => :delete,
-          class: "disagree" %>
+          :method => :delete %>
     <% end %>
   <% else %>
     <%= link_to 'AGREE', signin_path, :confirm => "You need to sign in to agree." %>
   <% end %>
-  </small>
-</h2>
+</h3>
+
+<table>
+  <tr>
+    <th>Believers...</th>
+  </tr>
+
+  <% @user_beliefs = UserBelief.where(belief_id: @belief.id) %>
+  <% @user_beliefs.each do |user_belief| %>
+    <% current_user = User.find(user_belief.user_id) %>
+    <tr>
+      <td><%= current_user.username %></td>
+    </tr>
+  <% end %>
+
+</table>
 
 <table>
 
@@ -31,8 +44,6 @@
   </tr>
 
   <% @believers = Array.new %>
-  <% @user_beliefs = UserBelief.where(belief_id: @belief.id) %>
-
   <% @user_beliefs.each do |user_belief| %>
     <% @believers.push(User.find(user_belief.user_id)) %>
   <% end %>
@@ -53,4 +64,4 @@
 
 </table>
 
-<p><%= link_to 'Back', beliefs_path %></p>
+<%= link_to 'Back', beliefs_path %>

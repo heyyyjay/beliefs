@@ -8,18 +8,31 @@
 </head>
 <body>
 
-  <ul id="nav">
-    <li><%= link_to "Home", root_path %></li>
+<div class="container">
+
+<div class="page-header">
+<h1 class="brand"><%= link_to "BELIEFS", root_path %> <small class="tagline"> What do you believe in?</small></h1>
+
+<table>
+    <ul class="nav">
+      <li><%= link_to "Home", root_path %></li>
+
+    <% if signed_in? %>
+      <li><%= link_to 'New Belief', new_belief_path %></li>
+    <% end %>
+
     <% if signed_in? %>
       <!-- TODO search for other users? -->
       <li><%= link_to "Profile", current_user %></li>
       <li><%= link_to "Sign out", signout_path, method: "delete"%></li>
     <% else %>
       <li><%= link_to "Sign in", signin_path %></li>
-      <li><%= link_to "Register", signup_path %>
+      <li><%= link_to "Register", signup_path %></li>
     <% end %>
-  </ul>
+    </ul>
 
+</table>
+</div>
   <%= yield %>
 
 <!--
@@ -29,5 +42,8 @@
   <div>
     <%= render 'layouts/footer' %>
   </div>
+
+</div>
+
 </body>
 </html>
